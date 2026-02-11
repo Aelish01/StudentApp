@@ -1,0 +1,189 @@
+<div class="dialog-container">
+  <h2 mat-dialog-title style="display: flex; justify-content: space-between; align-items: center">
+    <span>{{ data ? 'Edit Student' : 'Add New Student' }}</span>
+    <button mat-icon-button (click)="cancel()" type="button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </h2>
+
+  <mat-dialog-content>
+    <form [formGroup]="form" class="student-form">
+      <div class="form-section">
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Full Name *</mat-label>
+            <input
+              matInput="matInput"
+              placeholder="Enter student's full name"
+              formControlName="name"
+              maxlength="50"
+            />
+            <mat-error *ngIf="form.get('name')?.hasError('required')">
+              Full name is required
+            </mat-error>
+            <mat-error *ngIf="form.get('name')?.hasError('minlength')">
+              Name must be at least 3 characters long
+            </mat-error>
+            <mat-error *ngIf="form.get('name')?.hasError('pattern')">
+              Name should contain only letters and spaces
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email Address *</mat-label>
+            <input
+              matInput="matInput"
+              placeholder="example@email.com"
+              formControlName="email"
+              type="email"
+            />
+            <mat-error *ngIf="form.get('email')?.hasError('required')">
+              Email address is required
+            </mat-error>
+            <mat-error *ngIf="form.get('email')?.hasError('email')">
+              Please enter a valid email address
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Phone Number *</mat-label>
+            <input
+              matInput="matInput"
+              placeholder="Enter 10-digit phone number"
+              formControlName="phone"
+              maxlength="10"
+            />
+            <mat-error *ngIf="form.get('phone')?.hasError('required')">
+              Phone number is required
+            </mat-error>
+            <mat-error *ngIf="form.get('phone')?.hasError('pattern')">
+              Please enter a valid 10-digit phone number
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Date of Birth *</mat-label>
+
+            <input
+              matInput
+              [matDatepicker]="picker"
+              formControlName="dateOfBirth"
+              [max]="maxDate"
+            />
+
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+
+            <mat-error *ngIf="form.get('dateOfBirth')?.hasError('required')">
+              Date of birth is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Course *</mat-label>
+            <mat-select placeholder="Select a course" formControlName="course">
+              <mat-option value="Angular">
+                <mat-icon>code</mat-icon>
+                Angular
+              </mat-option>
+              <mat-option value="React">
+                <mat-icon>code</mat-icon>
+                React
+              </mat-option>
+              <mat-option value="Python">
+                <mat-icon>code</mat-icon>
+                Python
+              </mat-option>
+              <mat-option value="Java">
+                <mat-icon>code</mat-icon>
+                Java
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="form.get('course')?.hasError('required')">
+              Please select a course
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <div class="gender-section">
+            <label class="field-label">Gender *</label>
+            <mat-radio-group formControlName="gender" class="radio-group">
+              <mat-radio-button value="Male"> Male </mat-radio-button>
+              <mat-radio-button value="Female"> Female </mat-radio-button>
+              <mat-radio-button value="Other"> Other </mat-radio-button>
+            </mat-radio-group>
+            <div
+              class="error-message"
+              *ngIf="form.get('gender')?.hasError('required') && form.get('gender')?.touched"
+            >
+              Please select a gender
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Address *</mat-label>
+            <textarea
+              matInput="matInput"
+              placeholder="Enter complete address"
+              formControlName="address"
+              rows="3"
+              maxlength="200"
+            ></textarea>
+            <mat-error *ngIf="form.get('address')?.hasError('required')">
+              Address is required
+            </mat-error>
+            <mat-error *ngIf="form.get('address')?.hasError('minlength')">
+              Address must be at least 10 characters long
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="">
+          <mat-label>Hobbies *</mat-label>
+          <div class="hobbies-container">
+            <mat-checkbox
+              *ngFor="let h of hobbyList"
+              [checked]="isHobbySelected(h)"
+              (change)="onHobbyChange(h, $event)"
+              class="hobby-checkbox"
+            >
+              {{ h }}
+            </mat-checkbox>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button
+      mat-stroked-button="mat-stroked-button"
+      (click)="cancel()"
+      type="button"
+      class="cancel-btn"
+    >
+      <mat-icon>close</mat-icon>
+      Cancel
+    </button>
+    <button
+      mat-raised-button="mat-raised-button"
+      color="primary"
+      (click)="save()"
+      type="button"
+      [disabled]="form.invalid"
+      class="save-btn"
+    >
+      <mat-icon>{{ data ? 'save' : 'add_circle' }}</mat-icon>
+      {{ data ? 'Update Student' : 'Add Student' }}
+    </button>
+  </mat-dialog-actions>
+</div>

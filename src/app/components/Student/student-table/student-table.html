@@ -1,0 +1,107 @@
+<div class="table-wrapper">
+    <mat-card class="student-card">
+        <mat-card-header>
+            <div class="header-content">
+                <div class="title-section">
+                    <div>
+                        <mat-card-title>Student Management System</mat-card-title>
+                    </div>
+                </div>
+                <button mat-raised-button color="accent" (click)="openDialog()" class="add-btn">
+                    <mat-icon>add_circle</mat-icon>
+                    Add New Student
+                </button>
+            </div>
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="table-container">
+                <table mat-table [dataSource]="dataSource" matSort class="student-table">
+
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Name
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <span class="phone-text">{{ s.name }}</span>                           
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Email
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <span class="phone-text">{{ s.email }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="phone">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Phone
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <span class="phone-text">{{ s.phone }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="gender">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Gender
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <span class="phone-text">
+                                {{ s.gender }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="course">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Course
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <span class="phone-text">
+                                {{ s.course }}
+                            </span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="header-cell">
+                                Actions
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let s">
+                            <div class="action-buttons">
+                                <button mat-mini-fab color="accent" (click)="openDialog(s)" matTooltip="Edit Student">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-mini-fab color="warn" (click)="delete(s.id)" matTooltip="Delete Student">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns" class="table-row"></tr>
+                </table>
+            </div>
+
+            <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" [pageSize]="10" showFirstLastButtons class="custom-paginator"></mat-paginator>
+        </mat-card-content>
+    </mat-card>
+</div>

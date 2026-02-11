@@ -1,0 +1,170 @@
+.dialog-container {
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+h2[mat-dialog-title] {
+  gap: 12px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-family: 'Poppins';
+  font-size: 22px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+
+  span {
+    flex: 1;
+  }
+
+  .mat-icon {
+    color: white;
+  }
+}
+
+mat-dialog-content {
+  padding: 24px;
+  overflow-y: auto;
+  max-height: calc(90vh - 180px);
+
+  .student-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .form-section {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 12px;
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Poppins';
+      font-size: 16px;
+      font-weight: 600;
+      color: #333;
+      margin: 0 0 20px 0;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #e0e0e0;
+
+      mat-icon {
+        color: #667eea;
+        font-family: 'Poppins';
+        font-size: 24px;
+        width: 24px;
+        height: 24px;
+      }
+    }
+  }
+
+  .form-row {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 8px;
+
+    .full-width {
+      flex: 1;
+    }
+  }
+
+  mat-form-field {
+    width: 100%;
+
+    mat-icon[matPrefix] {
+      color: #667eea;
+      margin-right: 8px;
+    }
+
+    mat-hint {
+      font-family: 'Poppins';
+      font-size: 11px;
+    }
+
+    mat-error {
+      font-family: 'Poppins';
+      font-size: 12px;
+      margin-top: 4px;
+    }
+  }
+
+  .field-label {
+    display: block;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 12px;
+  }
+
+  .gender-section {
+    width: 100%;
+
+    .radio-group {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .error-message {
+      color: #f44336;
+      font-family: 'Poppins';
+      font-size: 12px;
+      margin-top: 8px;
+    }
+  }
+
+  .hobbies-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 12px;
+
+    .hobby-checkbox {
+      padding: 12px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: white;
+
+      &:hover {
+        border-color: #667eea;
+        background: #f5f7ff;
+      }
+
+      &.mat-checkbox-checked {
+        border-color: #667eea;
+        background: #f5f7ff;
+      }
+
+      .hobby-icon {
+        font-family: 'Poppins';
+        font-size: 18px;
+        width: 18px;
+        height: 18px;
+        margin-right: 8px;
+        color: #667eea;
+        vertical-align: middle;
+      }
+    }
+  }
+}
+
+
+
+// Responsive Design
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .hobbies-container {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  }
+
+  .gender-section .radio-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
